@@ -1,0 +1,12 @@
+CREATE TABLE public.costcalc_config (
+  id serial primary key,
+  data jsonb not null
+);
+
+INSERT INTO public.costcalc_config (data)
+VALUES (
+  '{
+    "VAT": {"value": 21, "label": "VAT", "type": "number"},
+    "ReportName": {"value": "CostCalc", "label": "Report name", "type": "string"}
+  }'::jsonb
+);

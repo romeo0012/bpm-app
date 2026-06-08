@@ -1,0 +1,3 @@
+/root/Docker/camunda/bpm-app/src/test/java/com/camunda/InMemoryH2Test.java
+/root/Docker/camunda/bpm-app/src/test/java/com/camunda/ProcessScenarioTest.java
+/root/Docker/camunda/bpm-app/src/test/java/com/camunda/ProcessUnitTest.java

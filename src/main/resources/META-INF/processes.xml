@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-application xmlns="http://www.camunda.org/schema/1.0/ProcessApplication">
+  
+  <!-- Prázdný = auto-scan všech BPMN souborů -->
+  
+</process-application>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>InfraCostCalc Form</title>
+</head>
+<body>
+<form class="form-horizontal">
+  <div class="col-xs-12">
+  <h2>Environments</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label></label></td>
+    <td style="padding: 5px;"><label>Data Encryption</label></td>
+    <td style="padding: 5px;"><label>Development</label></td>
+    <td style="padding: 5px;"><label>Test</label></td>
+    <td style="padding: 5px;"><label>Stage</label></td>
+    <td style="padding: 5px;"><label>Production</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Public Commercial Certificate</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="dcerp" cam-variable-type="Long" cam-variable-name="dcerp" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tcerp" cam-variable-type="Long" cam-variable-name="tcerp" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qcerp" cam-variable-type="Long" cam-variable-name="qcerp" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pcerp" cam-variable-type="Long" cam-variable-name="pcerp" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Internally Issued Certificate</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="dceri" cam-variable-type="Long" cam-variable-name="dceri" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tceri" cam-variable-type="Long" cam-variable-name="tceri" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qceri" cam-variable-type="Long" cam-variable-name="qceri" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pceri" cam-variable-type="Long" cam-variable-name="pceri" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Firewall Rule</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="dfw" cam-variable-type="Long" cam-variable-name="dfw" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tfw" cam-variable-type="Long" cam-variable-name="tfw" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qfw" cam-variable-type="Long" cam-variable-name="qfw" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pfw" cam-variable-type="Long" cam-variable-name="pfw" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Load Balanced VIP</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="dvip" cam-variable-type="Long" cam-variable-name="dvip" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tvip" cam-variable-type="Long" cam-variable-name="tvip" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qvip" cam-variable-type="Long" cam-variable-name="qvip" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pvip" cam-variable-type="Long" cam-variable-name="pvip" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Server</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="srvenc" cam-variable-type="Boolean" cam-variable-name="srvenc" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dsrv" cam-variable-type="Long" cam-variable-name="dsrv" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tsrv" cam-variable-type="Long" cam-variable-name="tsrv" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qsrv" cam-variable-type="Long" cam-variable-name="qsrv" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="psrv" cam-variable-type="Long" cam-variable-name="psrv" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Database</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="dbenc" cam-variable-type="Boolean" cam-variable-name="dbenc" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="ddb" cam-variable-type="Long" cam-variable-name="ddb" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tdb" cam-variable-type="Long" cam-variable-name="tdb" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qdb" cam-variable-type="Long" cam-variable-name="qdb" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pdb" cam-variable-type="Long" cam-variable-name="pdb" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>File Transfer Queues</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="ftenc" cam-variable-type="Boolean" cam-variable-name="ftenc" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dftq" cam-variable-type="Long" cam-variable-name="dftq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tftq" cam-variable-type="Long" cam-variable-name="tftq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qftq" cam-variable-type="Long" cam-variable-name="qftq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pftq" cam-variable-type="Long" cam-variable-name="pftq" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Kafka Topics</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="msgenc" cam-variable-type="Boolean" cam-variable-name="msgenc" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dmsq" cam-variable-type="Long" cam-variable-name="dmsq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tmsq" cam-variable-type="Long" cam-variable-name="tmsq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qmsq" cam-variable-type="Long" cam-variable-name="qmsq" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="pmsq" cam-variable-type="Long" cam-variable-name="pmsq" type="text"></td>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Direct Resources</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label></label></td>
+    <td style="padding: 5px;"><label>1st year</label></td>
+    <td style="padding: 5px;"><label>Year + 2</label></td>
+    <td style="padding: 5px;"><label>Year + 3</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>CPU Cores</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="cpu1" cam-variable-type="Long" cam-variable-name="cpu1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="cpu2" cam-variable-type="Long" cam-variable-name="cpu2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="cpu3" cam-variable-type="Long" cam-variable-name="cpu3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Memory (GB)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="memory1" cam-variable-type="Long" cam-variable-name="memory1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="memory2" cam-variable-type="Long" cam-variable-name="memory2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="memory3" cam-variable-type="Long" cam-variable-name="memory3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Server Disk (GB)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="hdd1" cam-variable-type="Long" cam-variable-name="hdd1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="hdd2" cam-variable-type="Long" cam-variable-name="hdd2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="hdd3" cam-variable-type="Long" cam-variable-name="hdd3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Database Size (GB)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="database1" cam-variable-type="Long" cam-variable-name="database1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="database2" cam-variable-type="Long" cam-variable-name="database2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="database3" cam-variable-type="Long" cam-variable-name="database3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Individual VPN accounts</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="vpn1" cam-variable-type="Long" cam-variable-name="vpn1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="vpn2" cam-variable-type="Long" cam-variable-name="vpn2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="vpn3" cam-variable-type="Long" cam-variable-name="vpn3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>L2 MPLS bandwidth (Mbps)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="l2mpls1" cam-variable-type="Long" cam-variable-name="l2mpls1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="l2mpls2" cam-variable-type="Long" cam-variable-name="l2mpls2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="l2mpls3" cam-variable-type="Long" cam-variable-name="l2mpls3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>L3 MPLS bandwidth (Mbps)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="l3mpls1" cam-variable-type="Long" cam-variable-name="l3mpls1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="l3mpls2" cam-variable-type="Long" cam-variable-name="l3mpls2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="l3mpls3" cam-variable-type="Long" cam-variable-name="l3mpls3" type="text"></td>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Support Resources</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label></label></td>
+    <td style="padding: 5px;"><label>1st year</label></td>
+    <td style="padding: 5px;"><label>Year + 2</label></td>
+    <td style="padding: 5px;"><label>Year + 3</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Transactions store (GB)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="trs1" cam-variable-type="Long" cam-variable-name="trs1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="trs2" cam-variable-type="Long" cam-variable-name="trs2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="trs3" cam-variable-type="Long" cam-variable-name="trs3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Business logging</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="buslog1" cam-variable-type="Boolean" cam-variable-name="buslog1" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="buslog2" cam-variable-type="Boolean" cam-variable-name="buslog2" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="buslog3" cam-variable-type="Boolean" cam-variable-name="buslog3" type="checkbox"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Technical logging</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="techlog1" cam-variable-type="Boolean" cam-variable-name="techlog1" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="techlog2" cam-variable-type="Boolean" cam-variable-name="techlog2" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="techlog3" cam-variable-type="Boolean" cam-variable-name="techlog3" type="checkbox"></td>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Network lines</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><input class="form-control" name="Internet" cam-variable-type="Boolean" cam-variable-name="Internet" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="Alu" cam-variable-type="Boolean" cam-variable-name="Alu" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="Dtv" cam-variable-type="Boolean" cam-variable-name="Dtv" type="checkbox"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Internet</label></td>
+    <td style="padding: 5px;"><label>ALU</label></td>
+    <td style="padding: 5px;"><label>DTV</label></td>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Service recovery time and allowed data lost</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label>SLA</label></td>
+    <td style="padding: 5px;"><label>IT Continuity Solution</label></td>
+    <td style="padding: 5px;"><label>RTO in hours</label></td>
+    <td style="padding: 5px;"><label>RPO in min</label></td>
+    <td style="padding: 5px;"><label>Archiv in years</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">
+  		<div class="radio"><label for="sla"><input type="radio" name="sla" value="8x5">8x5</label></div>
+  		<div class="radio"><label for="sla"><input type="radio" name="sla" value="24x7">24x7</label></div>
+  	</td>
+    <td style="padding: 5px;">
+  		<div class="radio"><label for="continuity"><input type="radio" name="continuity" value="passive">passive</label></div>
+  		<div class="radio"><label for="continuity"><input type="radio" name="continuity" value="active">active</label></div>
+  	</td>
+    <td style="padding: 5px;"><input class="form-control" name="rto" cam-variable-type="Long" cam-variable-name="rto" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="rpo" cam-variable-type="Long" cam-variable-name="rpo" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="archiv" cam-variable-type="Long" cam-variable-name="archiv" type="text"></td>
+  </tr>
+  <tr>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Other Costs</h2>
+  <p><table style="border-collapse: collapse; border: 0px solid gray; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label></label></td>
+    <td><label>External Service</label></td>
+    <td style="padding: 5px;"><label>1st year</label></td>
+    <td style="padding: 5px;"><label>Year + 2</label></td>
+    <td style="padding: 5px;"><label>Year + 3</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Programming (MD)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="PrgIsExt" cam-variable-type="Boolean" cam-variable-name="PrgIsExt" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="prg1" cam-variable-type="Long" cam-variable-name="prg1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="prg2" cam-variable-type="Long" cam-variable-name="prg2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="prg3" cam-variable-type="Long" cam-variable-name="prg3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Deployment (MD)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="DplIsExt" cam-variable-type="Boolean" cam-variable-name="DplIsExt" type="checkbox"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dpl1" cam-variable-type="Long" cam-variable-name="dpl1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dpl2" cam-variable-type="Long" cam-variable-name="dpl2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="dpl3" cam-variable-type="Long" cam-variable-name="dpl3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>License (EUR)</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="lic1" cam-variable-type="Long" cam-variable-name="lic1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="lic2" cam-variable-type="Long" cam-variable-name="lic2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="lic3" cam-variable-type="Long" cam-variable-name="lic3" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>Maintenance (MD)</label></td>
+    <td></td>
+    <td style="padding: 5px;"><input class="form-control" name="mtn1" cam-variable-type="Long" cam-variable-name="mtn1" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="mtn2" cam-variable-type="Long" cam-variable-name="mtn2" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="mtn3" cam-variable-type="Long" cam-variable-name="mtn3" type="text"></td>
+  </tr>
+  </table></p>
+  <hr>
+  <h2>Documentation</h2>
+  <p><table style="border-collapse: collapse; font-family:Arial; font-size:90%; width:90%;">
+  <tr>
+    <td style="padding: 5px;"><label></label></td>
+    <td style="padding: 5px;"><label>Development</label></td>
+    <td style="padding: 5px;"><label>Test</label></td>
+    <td style="padding: 5px;"><label>Stage</label></td>
+    <td style="padding: 5px;"><label>Production</label></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>HLD Design (MD)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="dhld" cam-variable-type="Long" cam-variable-name="dhld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="thld" cam-variable-type="Long" cam-variable-name="thld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qhld" cam-variable-type="Long" cam-variable-name="qhld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="phld" cam-variable-type="Long" cam-variable-name="phld" type="text"></td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;"><label>LLD Design (MD)</label></td>
+    <td style="padding: 5px;"><input class="form-control" name="dlld" cam-variable-type="Long" cam-variable-name="dlld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="tlld" cam-variable-type="Long" cam-variable-name="tlld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="qlld" cam-variable-type="Long" cam-variable-name="qlld" type="text"></td>
+    <td style="padding: 5px;"><input class="form-control" name="plld" cam-variable-type="Long" cam-variable-name="plld" type="text"></td>
+  </tr>
+  </table></p>
+  <hr>
+
+  </div>
+  <script cam-script type="text/form-script">
+	// form gets the initial state of the radio button from an existing process variable
+    var variableManager = camForm.variableManager;
+    camForm.on('form-loaded', function() {
+        variableManager.fetchVariable('sla');
+        variableManager.fetchVariable('continuity');
+    });
+    camForm.on('variables-fetched', function() {
+        // value has been fetched, bind to control
+        $('input:radio[name=sla]').val([variableManager.variable('sla').value]);
+        $('input:radio[name=continuity]').val([variableManager.variable('continuity').value]);
+    });
+    camForm.on('submit', function(evt) {
+        // set value in variable manager so that it can be sent to backend
+        variableManager.variableValue('sla', $('input:radio[name=sla]:checked').val());
+        variableManager.variableValue('continuity', $('input:radio[name=continuity]:checked').val());
+    });
+  </script>
+</form>
+</body>
+</html>

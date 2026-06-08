@@ -1,0 +1,76 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://10.100.3.23:5432/camunda
+    username: webadmin
+    password: SH1HhZR7uf
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: camunda
+            client-secret: Q0bqK7FJ5eTZcPsHxipgGZukQv2OvB4A
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          keycloak:
+            issuer-uri: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+  resources:
+      static-locations: classpath:/webapp/
+
+  mvc:
+      log-request-details: true
+
+server:
+  port: 9090
+  servlet:
+    context-path: /
+  forward-headers-strategy: native
+
+camunda:
+  bpm:
+    filter:
+      create: All Tasks
+    webapp:
+      security:
+        enabled: false
+    history-level: full
+
+plugin:
+  identity:
+    keycloak:
+      keycloakIssuerUrl: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+      keycloakAdminUrl: https://dev-mgmt.prg1paas.t-cloud.eu/admin/realms/camunda
+      clientId: camunda-identity-service
+      clientSecret: B6wXVJAf6U4Wc5crYXXlladXM7lXQQnV
+      useEmailAsCamundaUserId: false
+      useUsernameAsCamundaUserId: true
+      useGroupPathAsCamundaGroupId: true
+      administratorGroupName: camunda-admin
+      disableSSLCertificateValidation: false
+      useFormBasedAuthentication: false
+
+logging:
+  enableLoggingRequestDetails: true
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web.authentication: DEBUG
+    org.springframework.security.oauth2.client: DEBUG
+    org.springframework.security.oauth2.client.web: DEBUG
+    org.springframework.security.oauth2.client.endpoint: DEBUG
+    org.camunda.bpm.engine: DEBUG
+    org.camunda.bpm.webapp: DEBUG
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: TRACE
+    org.springframework.web.servlet.DispatcherServlet: TRACE
+    org.springframework.web: TRACE

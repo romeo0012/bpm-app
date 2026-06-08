@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0hi9tpi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.46.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <bpmn:process id="IaasCostCalc" name="IaaS Cost Calculator" isExecutable="true" camunda:historyTimeToLive="P2D">
+    <bpmn:startEvent id="Start" name="start" camunda:formKey="embedded:deployment:IaasCostCalc-start-form.html">
+      <bpmn:outgoing>Flow_1xs1zzf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1xs1zzf" sourceRef="Start" targetRef="Config" />
+    <bpmn:exclusiveGateway id="NewCalcGW" name="Change Required Resources">
+      <bpmn:incoming>Flow_0r5cppx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wj0uai</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0gqa9ut</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1wj0uai" name="yes" sourceRef="NewCalcGW" targetRef="Resources">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${newcalc}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Resources" name="HLD Config ${bk} ${ReportName}" camunda:formKey="embedded:deployment:IaasCostCalc-resources.html">
+      <bpmn:incoming>Flow_00kb2n1</bpmn:incoming>
+      <bpmn:incoming>Flow_1wj0uai</bpmn:incoming>
+      <bpmn:incoming>Flow_1nefep6</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ijoh3e</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="DisplayCosts" name="HLD Costs ${bk} ${ReportName}" camunda:formKey="embedded:deployment:IaasCostCalc-display-costs.html">
+      <bpmn:incoming>Flow_0qm6my2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ok3po1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="End" name="end">
+      <bpmn:incoming>Flow_0gqa9ut</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0gqa9ut" name="no" sourceRef="NewCalcGW" targetRef="End">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!newcalc}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1mvinx4" sourceRef="CalculateCosts" targetRef="Report" />
+    <bpmn:serviceTask id="CalculateCosts" name="Calculate Costs" camunda:type="external" camunda:topic="IaasCostCalc-calculate-cost">
+      <bpmn:incoming>Flow_0ijoh3e</bpmn:incoming>
+      <bpmn:incoming>Flow_09nx7p3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mvinx4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0ijoh3e" sourceRef="Resources" targetRef="CalculateCosts" />
+    <bpmn:sequenceFlow id="Flow_0qm6my2" sourceRef="Report" targetRef="DisplayCosts" />
+    <bpmn:serviceTask id="Report" name="Report" camunda:type="external" camunda:topic="IaasCostCalc-report">
+      <bpmn:incoming>Flow_1mvinx4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qm6my2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_00kb2n1" sourceRef="Config" targetRef="Resources" />
+    <bpmn:serviceTask id="Config" name="Read Config from DB" camunda:type="external" camunda:topic="IaasCostCalc-config">
+      <bpmn:incoming>Flow_1xs1zzf</bpmn:incoming>
+      <bpmn:outgoing>Flow_00kb2n1</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1ok3po1" sourceRef="DisplayCosts" targetRef="EditCostsGW" />
+    <bpmn:exclusiveGateway id="EditCostsGW" name="Edit Resource Costs">
+      <bpmn:incoming>Flow_1ok3po1</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r5cppx</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1q9d28l</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0r5cppx" name="no" sourceRef="EditCostsGW" targetRef="NewCalcGW">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!editcosts}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1q9d28l" name="yes" sourceRef="EditCostsGW" targetRef="EditCosts">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${editcosts}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0qfrff8" sourceRef="EditCosts" targetRef="Update" />
+    <bpmn:userTask id="EditCosts" name="Edit Pricing ${bk} ${ReportName}" camunda:formKey="embedded:deployment:IaasCostCalc-edit-costs.html">
+      <bpmn:incoming>Flow_1q9d28l</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qfrff8</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="NewCalcGW2" name="Change Required Resources">
+      <bpmn:incoming>Flow_1umilk1</bpmn:incoming>
+      <bpmn:outgoing>Flow_09nx7p3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1nefep6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_09nx7p3" name="no" sourceRef="NewCalcGW2" targetRef="CalculateCosts">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!newcalc}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1nefep6" name="yes" sourceRef="NewCalcGW2" targetRef="Resources">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${newcalc}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1umilk1" sourceRef="Update" targetRef="NewCalcGW2" />
+    <bpmn:serviceTask id="Update" name="Update Config in DB" camunda:type="external" camunda:topic="IaasCostCalc-update">
+      <bpmn:incoming>Flow_0qfrff8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1umilk1</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="IaasCostCalc">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="Start">
+        <dc:Bounds x="152" y="209" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="252" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0pute2e_di" bpmnElement="Resources">
+        <dc:Bounds x="420" y="187" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nee3uc_di" bpmnElement="DisplayCosts">
+        <dc:Bounds x="920" y="187" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t1m0g8_di" bpmnElement="CalculateCosts">
+        <dc:Bounds x="580" y="187" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a70hn6_di" bpmnElement="Report">
+        <dc:Bounds x="750" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_094ai06_di" bpmnElement="Config">
+        <dc:Bounds x="250" y="187" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cabwme_di" bpmnElement="EditCosts">
+        <dc:Bounds x="920" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0g1t1ak_di" bpmnElement="EditCostsGW" isMarkerVisible="true">
+        <dc:Bounds x="1065" y="202" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1055" y="165" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_19ayzhh_di" bpmnElement="NewCalcGW" isMarkerVisible="true">
+        <dc:Bounds x="1165" y="202" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1147" y="259" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1svw2uv_di" bpmnElement="NewCalcGW2" isMarkerVisible="true">
+        <dc:Bounds x="605" y="345" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="587" y="402" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19na55w_di" bpmnElement="Update">
+        <dc:Bounds x="750" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1aaw0e6_di" bpmnElement="End">
+        <dc:Bounds x="1282" y="209" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1291" y="252" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1xs1zzf_di" bpmnElement="Flow_1xs1zzf">
+        <di:waypoint x="188" y="227" />
+        <di:waypoint x="250" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wj0uai_di" bpmnElement="Flow_1wj0uai">
+        <di:waypoint x="1190" y="202" />
+        <di:waypoint x="1190" y="120" />
+        <di:waypoint x="470" y="120" />
+        <di:waypoint x="470" y="187" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="821" y="102" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00kb2n1_di" bpmnElement="Flow_00kb2n1">
+        <di:waypoint x="350" y="227" />
+        <di:waypoint x="420" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nefep6_di" bpmnElement="Flow_1nefep6">
+        <di:waypoint x="605" y="370" />
+        <di:waypoint x="470" y="370" />
+        <di:waypoint x="470" y="267" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="529" y="352" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ijoh3e_di" bpmnElement="Flow_0ijoh3e">
+        <di:waypoint x="520" y="227" />
+        <di:waypoint x="580" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qm6my2_di" bpmnElement="Flow_0qm6my2">
+        <di:waypoint x="850" y="227" />
+        <di:waypoint x="920" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ok3po1_di" bpmnElement="Flow_1ok3po1">
+        <di:waypoint x="1020" y="227" />
+        <di:waypoint x="1065" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mvinx4_di" bpmnElement="Flow_1mvinx4">
+        <di:waypoint x="680" y="227" />
+        <di:waypoint x="750" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09nx7p3_di" bpmnElement="Flow_09nx7p3">
+        <di:waypoint x="630" y="345" />
+        <di:waypoint x="630" y="267" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="639" y="304" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gqa9ut_di" bpmnElement="Flow_0gqa9ut">
+        <di:waypoint x="1215" y="227" />
+        <di:waypoint x="1282" y="227" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1226" y="209" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q9d28l_di" bpmnElement="Flow_1q9d28l">
+        <di:waypoint x="1090" y="252" />
+        <di:waypoint x="1090" y="370" />
+        <di:waypoint x="1020" y="370" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1096" y="308" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qfrff8_di" bpmnElement="Flow_0qfrff8">
+        <di:waypoint x="920" y="370" />
+        <di:waypoint x="850" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r5cppx_di" bpmnElement="Flow_0r5cppx">
+        <di:waypoint x="1115" y="227" />
+        <di:waypoint x="1165" y="227" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1123" y="209" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1umilk1_di" bpmnElement="Flow_1umilk1">
+        <di:waypoint x="750" y="370" />
+        <di:waypoint x="655" y="370" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

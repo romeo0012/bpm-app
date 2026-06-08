@@ -1,0 +1,13 @@
+com/camunda/costcalc/CalculateCost.class
+com/camunda/security/SecurityConfig.class
+com/camunda/security/CamundaKeycloakIdentityProvider.class
+com/camunda/security/KeycloakAuthenticationProvider.class
+com/camunda/plugin/HistoryPlugin.class
+com/camunda/SetBusinessKeyDelegate.class
+com/camunda/DebugController.class
+com/camunda/ProcessConstants.class
+com/camunda/config/ForwardedConfig.class
+com/camunda/LoggerDelegate.class
+com/camunda/CamundaApplication.class
+com/camunda/costcalc/Config.class
+com/camunda/costcalc/Report.class

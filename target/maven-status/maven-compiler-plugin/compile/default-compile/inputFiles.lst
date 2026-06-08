@@ -1,0 +1,13 @@
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/security/CamundaKeycloakIdentityProvider.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/CamundaApplication.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/plugin/HistoryPlugin.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/LoggerDelegate.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/security/KeycloakAuthenticationProvider.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/DebugController.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/ProcessConstants.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/config/ForwardedConfig.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/costcalc/Report.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/SetBusinessKeyDelegate.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/costcalc/CalculateCost.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/security/SecurityConfig.java
+/root/Docker/camunda/bpm-app/src/main/java/com/camunda/costcalc/Config.java

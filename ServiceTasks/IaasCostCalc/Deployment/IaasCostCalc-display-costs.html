@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    table { 
+      border-collapse: collapse; 
+      font-family:Arial; 
+      font-size:90%; 
+      width:90%; 
+      margin:20px 0; 
+    }
+    td { 
+      padding: 8px; 
+      vertical-align: middle; 
+    }
+    /* READ-ONLY DISPLAY */
+    .readonly { 
+      background: #f8f9fa !important; 
+      border: 1px solid #dee2e6 !important; 
+      color: #495057 !important; 
+      pointer-events: none !important; 
+      user-select: none !important;
+      font-weight: 500;
+      text-align: right;
+    }
+    h2 { 
+      color: #495057; 
+      margin: 30px 0 15px 0; 
+      border-bottom: 2px solid #dee2e6; 
+      padding-bottom: 8px; 
+    }
+    h3 { 
+      color: #495057; 
+      margin: 25px 0 15px 0; 
+      font-size: 16px; 
+    }
+    hr { 
+      border: none; 
+      border-top: 1px solid #dee2e6; 
+      margin: 40px 0; 
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding: 8px;
+      height: 32px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    .checkbox-row label {
+      margin: 0;
+      white-space: nowrap;
+      font-weight: normal !important;
+    }
+    a[cam-file-download] {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a[cam-file-download]:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<form class="form-horizontal">
+  <div class="col-xs-12">
+    
+    <h2>Costs per year</h2>
+    <table>
+      <tr>
+        <td><label></label></td>
+        <td><label>1st year</label></td>
+        <td><label>Year + 2</label></td>
+        <td><label>Year + 3</label></td>
+      </tr>
+      <tr>
+        <td><label>Capex in EUR (External)</label></td>
+        <td><input class="form-control readonly" name="capex1e" cam-variable-type="String" cam-variable-name="capex1e" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex2e" cam-variable-type="String" cam-variable-name="capex2e" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex3e" cam-variable-type="String" cam-variable-name="capex3e" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Capex in EUR (Internal)</label></td>
+        <td><input class="form-control readonly" name="capex1i" cam-variable-type="String" cam-variable-name="capex1i" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex2i" cam-variable-type="String" cam-variable-name="capex2i" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex3i" cam-variable-type="String" cam-variable-name="capex3i" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Opex in EUR</label></td>
+        <td><input class="form-control readonly" name="opex1" cam-variable-type="String" cam-variable-name="opex1" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opex2" cam-variable-type="String" cam-variable-name="opex2" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opex3" cam-variable-type="String" cam-variable-name="opex3" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Capex in CZK (External)</label></td>
+        <td><input class="form-control readonly" name="capex1eCZ" cam-variable-type="String" cam-variable-name="capex1eCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex2eCZ" cam-variable-type="String" cam-variable-name="capex2eCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex3eCZ" cam-variable-type="String" cam-variable-name="capex3eCZ" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Capex in CZK (Internal)</label></td>
+        <td><input class="form-control readonly" name="capex1iCZ" cam-variable-type="String" cam-variable-name="capex1iCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex2iCZ" cam-variable-type="String" cam-variable-name="capex2iCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capex3iCZ" cam-variable-type="String" cam-variable-name="capex3iCZ" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Opex in CZK</label></td>
+        <td><input class="form-control readonly" name="opex1CZ" cam-variable-type="String" cam-variable-name="opex1CZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opex2CZ" cam-variable-type="String" cam-variable-name="opex2CZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opex3CZ" cam-variable-type="String" cam-variable-name="opex3CZ" type="text" readonly value=""></td>
+      </tr>
+    </table>
+    
+    <hr>
+    
+    <h2>Costs summary</h2>
+    <table>
+      <tr>
+        <td><label></label></td>
+        <td><label>3y Capex</label></td>
+        <td><label>3y Opex</label></td>
+        <td><label>3y Total</label></td>
+      </tr>
+      <tr>
+        <td><label>Total in EUR</label></td>
+        <td><input class="form-control readonly" name="capex" cam-variable-type="String" cam-variable-name="capex" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opex" cam-variable-type="String" cam-variable-name="opex" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capexopex" cam-variable-type="String" cam-variable-name="capexopex" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Total in EUR inc. VAT</label></td>
+        <td><input class="form-control readonly" name="capexVAT" cam-variable-type="String" cam-variable-name="capexVAT" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opexVAT" cam-variable-type="String" cam-variable-name="opexVAT" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capexopexVAT" cam-variable-type="String" cam-variable-name="capexopexVAT" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Total in CZK</label></td>
+        <td><input class="form-control readonly" name="capexCZ" cam-variable-type="String" cam-variable-name="capexCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opexCZ" cam-variable-type="String" cam-variable-name="opexCZ" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capexopexCZ" cam-variable-type="String" cam-variable-name="capexopexCZ" type="text" readonly value=""></td>
+      </tr>
+      <tr>
+        <td><label>Total in CZK inc. VAT</label></td>
+        <td><input class="form-control readonly" name="capexCZVAT" cam-variable-type="String" cam-variable-name="capexCZVAT" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="opexCZVAT" cam-variable-type="String" cam-variable-name="opexCZVAT" type="text" readonly value=""></td>
+        <td><input class="form-control readonly" name="capexopexCZVAT" cam-variable-type="String" cam-variable-name="capexopexCZVAT" type="text" readonly value=""></td>
+      </tr>
+    </table>
+    
+    <hr>
+    
+    <h3><a cam-file-download="EXCEL_REPORT">Download Excel Report</a></h3>
+    
+    <hr>
+    
+    <div class="checkbox-row">
+      <input class="form-control" name="newcalc" cam-variable-type="Boolean" cam-variable-name="newcalc" type="checkbox">
+      <label>Change Required Resources</label>
+    </div>
+    <div class="checkbox-row">
+      <input class="form-control" name="editcosts" cam-variable-type="Boolean" cam-variable-name="editcosts" type="checkbox">
+      <label>Edit Resource Costs</label>
+    </div>
+
+  </div>
+
+  <script cam-script type="text/form-script">
+    // Formátování čísel: 1234.00 → 1 234, 1234.50 → 1 234.5
+    camForm.on('variables-fetched', function() {
+      document.querySelectorAll('.form-control.readonly').forEach(input => {
+        let val = input.value.trim();
+        if (val && !isNaN(val)) {
+          // Odstraň .00 a přidej mezery
+          val = parseFloat(val).toLocaleString('cs-CZ', { 
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 1 
+          });
+          input.value = val;
+        }
+      });
+    });
+  </script>
+</form>

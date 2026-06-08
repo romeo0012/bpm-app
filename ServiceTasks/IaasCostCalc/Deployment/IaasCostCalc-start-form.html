@@ -1,0 +1,72 @@
+<form class="form-horizontal" role="form">
+  <div class="form-group" ng-class="{'has-error': businessKeyInvalid}">
+    <label class="col-sm-2 control-label">Enter Your Business Key</label>
+    <div class="col-sm-10">
+      <input type="text"
+             cam-business-key
+             class="form-control"
+             required
+             class="form-control"
+             ng-model="businessKey" />
+      <span class="help-block" ng-show="businessKeyInvalid">
+        Business Key cannot contain: * ? : \ / [ ]
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error': reportNameInvalid}">
+    <label class="col-sm-2 control-label">Enter Your Report Name</label>
+    <div class="col-sm-10">
+      <input type="text"
+             cam-variable-name="ReportName"
+             cam-variable-type="String"
+             required
+             class="form-control"
+             ng-model="reportName" />
+      <span class="help-block" ng-show="reportNameInvalid">
+        Report Name cannot contain: * ? : \ / [ ]
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Cost Calculator Process Description</label>
+    <div class="col-sm-10">
+      <textarea class="form-control"
+                cam-variable-name="description"
+                cam-variable-type="String">This process calculates CAPEX and OPEX costs of a project.</textarea>
+    </div>
+  </div>
+
+  <script cam-script type="text/form-script">
+    camForm.on('submit', function() {
+      var bkInput = document.querySelector('[cam-business-key]');
+      camForm.variableManager.createVariable({
+        name: 'bk',
+        type: 'String',
+        value: bkInput ? bkInput.value : null
+      });
+    });
+
+    camForm.on('form-loaded', function() {
+      var reportInput = document.querySelector('[cam-variable-name="ReportName"]');
+      if (!reportInput) return;
+      reportInput.addEventListener('input', function() {
+        var invalidChars = /[\\\/:*?\[\]]/;
+        $scope.$evalAsync(function() {
+          $scope.reportNameInvalid = invalidChars.test(reportInput.value);
+        });
+      });
+
+      var businessInput = document.querySelector('[cam-business-key]');
+      if (!businessInput) return;
+      businessInput.addEventListener('input', function() {
+        var invalidChars = /[\\\/:*?\[\]]/;
+        $scope.$evalAsync(function() {
+          $scope.businessKeyInvalid = invalidChars.test(businessInput.value);
+        });
+      });
+
+    });
+  </script>
+</form>

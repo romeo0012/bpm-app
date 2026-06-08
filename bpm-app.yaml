@@ -1,0 +1,212 @@
+#bpm-app.yaml
+
+# kubectl create secret docker-registry ghcr-creds -n camunda --docker-server=https://ghcr.io --docker-username=romeo0012 --docker-password=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
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bpm-app-secret
+  namespace: camunda
+type: Opaque
+stringData:
+  TRUSTSTORE_PASSWORD: "BezpecneHeslo.123!"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bpm-app-config
+  namespace: camunda
+data:
+  application.yaml: |
+    spring:
+      datasource:
+        url: jdbc:postgresql://10.100.3.23:5432/camunda
+        username: webadmin
+        password: SH1HhZR7uf
+
+      security:
+        oauth2:
+          client:
+            registration:
+              keycloak:
+                provider: keycloak
+                client-id: camunda
+                client-secret: Q0bqK7FJ5eTZcPsHxipgGZukQv2OvB4A
+                authorization-grant-type: authorization_code
+                redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+                scope:
+                  - openid
+                  - profile
+                  - email
+            provider:
+              keycloak:
+                issuer-uri: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+                user-name-attribute: preferred_username
+          resourceserver:
+            jwt:
+              issuer-uri: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+
+    server:
+      port: 9090
+      servlet:
+        context-path: /
+      forward-headers-strategy: native
+
+    camunda:
+      bpm:
+        filter:
+          create: All Tasks
+        webapp:
+          security:
+            enabled: false
+
+    plugin:
+      identity:
+        keycloak:
+          keycloakIssuerUrl: https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda
+          keycloakAdminUrl: https://dev-mgmt.prg1paas.t-cloud.eu/admin/realms/camunda
+          clientId: camunda-identity-service
+          clientSecret: B6wXVJAf6U4Wc5crYXXlladXM7lXQQnV
+          useEmailAsCamundaUserId: false
+          useUsernameAsCamundaUserId: true
+          useGroupPathAsCamundaGroupId: true
+          administratorGroupName: camunda-admin
+          disableSSLCertificateValidation: false
+          useFormBasedAuthentication: false
+
+    logging:
+      level:
+        org.springframework.web: DEBUG
+        org.springframework.web.servlet.DispatcherServlet: DEBUG
+        org.springframework.web.filter: DEBUG
+        org.springframework.security.web.authentication: DEBUG
+        org.springframework.security.oauth2.client: DEBUG
+        org.springframework.security.oauth2.client.web: DEBUG
+        org.springframework.security.oauth2.client.endpoint: DEBUG
+        org.camunda.bpm.engine: DEBUG
+        org.camunda.bpm.webapp: DEBUG
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bpm-app
+  namespace: camunda
+  labels:
+    app: bpm-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bpm-app
+  template:
+    metadata:
+      labels:
+        app: bpm-app
+    spec:
+      #imagePullSecrets:
+      #  - name: ghcr-creds
+
+      containers:
+        - name: bpm-app
+          image: ghcr.io/romeo0012/bpm-app:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 9090
+              name: http
+
+          env:
+            - name: SPRING_CONFIG_LOCATION
+              value: /config/
+            - name: TRUSTSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bpm-app-secret
+                  key: TRUSTSTORE_PASSWORD
+
+            - name: JAVA_TOOL_OPTIONS
+              value: >-
+                -Djavax.net.ssl.trustStore=/app/truststore.jks
+                -Djavax.net.ssl.trustStorePassword=$(TRUSTSTORE_PASSWORD)
+
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1024Mi"
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: bpm-app-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bpm-app
+  namespace: camunda
+  labels:
+    app: bpm-app
+spec:
+  selector:
+    app: bpm-app
+  ports:
+    - name: http
+      port: 9090
+      targetPort: http
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bpm-app
+  namespace: camunda
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      set $forwarded "proto=https;host=dev-kube.prg1paas.t-cloud.eu;port=443";
+      more_set_input_headers "Forwarded: \"$forwarded\"";
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-buffering: 'off'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+    nginx.ingress.kubernetes.io/session-cookie-name: SRVGROUP
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/use-forwarded-headers: 'true'
+  selfLink: /apis/networking.k8s.io/v1/namespaces/camunda/ingresses/bpm-app
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - dev-kube.prg1paas.t-cloud.eu
+  rules:
+    - host: dev-kube.prg1paas.t-cloud.eu
+      http:
+        paths:
+          - path: /camunda
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: node414-dev-mgmt
+                port:
+                  number: 9090
+          - path: /engine-rest
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: node414-dev-mgmt
+                port:
+                  number: 9090
+          - path: /oauth2
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: node414-dev-mgmt
+                port:
+                  number: 9090

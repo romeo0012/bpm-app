@@ -1,0 +1,15 @@
+services:
+  bpm-app:
+    image: ghcr.io/romeo0012/bpm-app:latest
+    container_name: bpm-app
+    extra_hosts:
+      - "node340-dev-kube.prg1paas.t-cloud.eu:10.100.3.23"
+      - "dev-mgmt.prg1paas.t-cloud.eu:193.85.150.28"
+      - "dev-kube.prg1paas.t-cloud.eu:193.85.150.20"
+    ports:
+      - "9090:9090"
+    networks:
+      - camunda
+networks:
+  camunda:
+    driver: bridge

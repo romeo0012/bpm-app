@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>InfraCostCalc Form</title>
+  <style>
+  .form-group { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 6px; 
+    padding: 6px 12px;
+    justify-content: flex-start;
+  }
+  input {
+    width: 100px; 
+    text-align: right;
+    padding: 4px 6px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  label { 
+    font-weight: normal !important; 
+    white-space: nowrap; 
+    margin: 0; 
+    line-height: 1.1;
+    min-width: 220px;
+    font-size: 14px;
+  }
+  .form-container {
+    max-width: 650px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+  h3 { 
+    margin: 25px 0 15px 0; 
+    text-align: left;
+    color: #495057;
+    font-size: 16px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+  }
+  </style>
+</head>
+<body>
+<form class="form-container">
+
+  <h3>IaaS Build Costs (€/month)</h3>
+  <div class="form-group"><label>Server</label><input type="text" cam-variable-name="ServerCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Storage</label><input type="text" cam-variable-name="StorageCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Business Log</label><input type="text" cam-variable-name="BusLogCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Technical Log</label><input type="text" cam-variable-name="TechLogCost" cam-variable-type="Long"></div>
+  
+  <h3>Network Costs (€/Gbit/month)</h3>
+  <div class="form-group"><label>ALU okruh</label><input type="text" cam-variable-name="AluOkruhCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>DTV okruh</label><input type="text" cam-variable-name="DtvOkruhCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Internet</label><input type="text" cam-variable-name="InternetCost" cam-variable-type="Long"></div>
+
+  <h3>Deployment Costs (€/once)</h3>
+  <div class="form-group"><label>Design</label><input type="text" cam-variable-name="DesignCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>FW Rule</label><input type="text" cam-variable-name="FwDeployCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Load Balanced VIP</label><input type="text" cam-variable-name="VipDeployCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Public Certificate</label><input type="text" cam-variable-name="CertDeployCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Server</label><input type="text" cam-variable-name="SrvDeployCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Database</label><input type="text" cam-variable-name="DbDeployCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Application Component</label><input type="text" cam-variable-name="AppDeploymentCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Encryption</label><input type="text" cam-variable-name="EncDeployCost" cam-variable-type="Long"></div>
+  
+  <h3>Employee & Maintenance Costs (€/MD)</h3>
+  <div class="form-group"><label>Czech Employee</label><input type="text" cam-variable-name="CzEmployeeCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Slovak Employee</label><input type="text" cam-variable-name="SkEmployeeCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>External Consultant</label><input type="text" cam-variable-name="ExternalCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Maintenance</label><input type="text" cam-variable-name="MaintanaceCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Monitoring</label><input type="text" cam-variable-name="MonitoringCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Programming</label><input type="text" cam-variable-name="ProgramingCost" cam-variable-type="Long"></div>
+  
+  <h3>Finance, Ratios & Other</h3>
+  <div class="form-group"><label>SLA 8x5 Ratio</label><input type="text" cam-variable-name="Sla8x5costRatio" cam-variable-type="Long"></div>
+  <div class="form-group"><label>SLA 24x7 Ratio</label><input type="text" cam-variable-name="Sla24x7costRatio" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Transaction Cost</label><input type="text" cam-variable-name="TransactionCost" cam-variable-type="Long"></div>
+  <div class="form-group"><label>ICT Active Ratio (%)</label><input type="text" cam-variable-name="IctActiveCostRatio" cam-variable-type="Long"></div>
+  <div class="form-group"><label>ICT Passive Ratio (%)</label><input type="text" cam-variable-name="IctPassiveCostRatio" cam-variable-type="Long"></div>
+  <div class="form-group"><label>VAT (%)</label><input type="text" cam-variable-name="VAT" cam-variable-type="Long"></div>
+  <div class="form-group"><label>EUR/CZK Rate</label><input type="text" cam-variable-name="Eur2Czk" cam-variable-type="Long"></div>
+  <div class="form-group"><label>VM Ratio</label><input type="text" cam-variable-name="VmRatio" cam-variable-type="Long"></div>
+  <div class="form-group"><label>CPU Block Size</label><input type="text" cam-variable-name="CpuBlock" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Memory Block Size (GB)</label><input type="text" cam-variable-name="MemoryBlock" cam-variable-type="Long"></div>
+  <div class="form-group"><label>Storage Block Size (GB)</label><input type="text" cam-variable-name="StorageBlock" cam-variable-type="Long"></div>
+</form>
+</body>
+</html>
