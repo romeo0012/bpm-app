@@ -10,5 +10,6 @@ git commit -m "initial commit"
 git branch -M main
 git remote add origin https://github.com/romeo0012/bpm-app.git
 
+git commit -a -m "update"
 git push -u origin main
 
