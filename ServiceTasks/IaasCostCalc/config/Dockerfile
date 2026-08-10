@@ -17,5 +17,4 @@ COPY package.json .
 COPY .env .
 
 # Start application
-ENV NODE_EXTRA_CA_CERTS=/app/root-ca.pem
 CMD ["node", "/app/app.js"]
