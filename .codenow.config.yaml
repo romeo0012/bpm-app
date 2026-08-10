@@ -1,0 +1,10 @@
+codenow:
+  connections:
+  - name: "CAMUNDA_DB"
+    type: "cloudnative-pg"
+  runtime:
+    replicas: 1
+    resources:
+      limits: {}
+      requests: {}
+    "null": false
