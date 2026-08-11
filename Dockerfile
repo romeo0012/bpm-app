@@ -6,13 +6,9 @@ RUN apk add --no-cache openjdk17-jre curl bash
 
 # Set working directory
 WORKDIR /app
-#RUN mkdir in
-#RUN mkdir out
-#COPY in/costcalc.conf in/
 
 # Copy application files
 COPY target/bpm-app.jar .
-# COPY tcloud.crt .
 COPY truststore.jks .
 
 # Expose port
