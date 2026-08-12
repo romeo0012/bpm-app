@@ -12,13 +12,17 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.camunda.bpm.scenario.ProcessScenario;
+import org.springframework.test.context.ActiveProfiles;
+
+import com.camunda.TestSecurityConfig;
+
 import org.camunda.bpm.scenario.Scenario;
 import org.camunda.bpm.scenario.run.ProcessRunner.ExecutableRunner;
 
 import static org.mockito.Mockito.*;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.init;
 import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 
 
@@ -26,7 +30,10 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
  * Test case starting an in-memory database-backed Process Engine.
  */
 @SpringBootTest
-@Import(ProcessEngineCoverageConfiguration.class)
+@Import({
+    ProcessEngineCoverageConfiguration.class,
+    TestSecurityConfig.class
+})@ActiveProfiles("test")
 public class ProcessScenarioTest {
 
   @Autowired
