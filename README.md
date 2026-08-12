@@ -1,4 +1,3 @@
-ELPW=j7jBeKaHu0cqMWdU
 
 Největší indexy
 curl -k -u elastic:$ELPW 'https://localhost:9200/_cat/indices?v&s=store.size:desc'
@@ -23,5 +22,4 @@ Po rolloveru už tenhle index nebude write index a delete bude povolený.
 smazat konkrétní starý index přímo.
 curl -k -u elastic:$ELPW -X DELETE 'https://localhost:9200/.ds-metricbeat-8.5.1-2026.03.21-000001'
 curl -k -u elastic:$ELPW -X DELETE 'https://localhost:9200/.ds-metricbeat-8.5.1-2026.04.09-000002'
-# bpm-app
-# bpm-app
+
