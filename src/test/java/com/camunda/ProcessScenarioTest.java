@@ -1,7 +1,7 @@
 package com.camunda;
 
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.runtime.ProcessInstance;
+//import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.community.process_test_coverage.spring_test.platform7.ProcessEngineCoverageConfiguration;
@@ -14,16 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.camunda.TestSecurityConfig;
+//import com.camunda.TestSecurityConfig;
 
-import org.camunda.bpm.scenario.Scenario;
-import org.camunda.bpm.scenario.run.ProcessRunner.ExecutableRunner;
+//import org.camunda.bpm.scenario.Scenario;
+//import org.camunda.bpm.scenario.run.ProcessRunner.ExecutableRunner;
 
-import static org.mockito.Mockito.*;
+//import static org.mockito.Mockito.*;
 
-import static org.assertj.core.api.Assertions.*;
+//import static org.assertj.core.api.Assertions.*;
 import static org.camunda.bpm.engine.test.assertions.bpmn.AbstractAssertions.init;
-import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
+//import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 
 
 /**
