@@ -10,6 +10,7 @@
 # git branch -M main
 # git remote add origin https://github.com/romeo0012/bpm-app.git
 
+git diff --cached
 git commit -a -m "update"
 git pull --rebase origin main
 git push origin main
