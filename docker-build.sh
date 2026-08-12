@@ -17,6 +17,7 @@ export CAMUNDA_IDENTITY_CLIENT_ID="camunda-identity-service"
 export CAMUNDA_IDENTITY_CLIENT_SECRET="B6wXVJAf6U4Wc5crYXXlladXM7lXQQnV"
 export JAVAX_NET_SSL_TRUSTSTORE="truststore.jks"
 export JAVAX_NET_SSL_TRUSTSTOREPASSWORD="BezpecneHeslo.123!"
+export CAMUNDA_ADMIN_GROUP="camunda-admin"
 
 mvn clean package -DskipTests
 java -Djavax.net.ssl.trustStore=$JAVAX_NET_SSL_TRUSTSTORE -Djavax.net.ssl.trustStorePassword=$JAVAX_NET_SSL_TRUSTSTOREPASSWORD -jar target/bpm-app.jar
@@ -30,7 +31,3 @@ docker build -t $TAG .
 docker tag $TAG $REPO/$TAG
 echo $TOKEN | docker login ghcr.io -u romeo0012 --password-stdin
 docker push $REPO/$TAG
-
-# git add -A
-# git commit --amend --no-edit
-# git push --force-with-lease origin main
