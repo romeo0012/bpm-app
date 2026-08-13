@@ -7,8 +7,9 @@ RUN apk add --no-cache openjdk17-jre curl bash
 WORKDIR /app
 
 # Copy application files
+ARG JAVAX_NET_SSL_TRUSTSTORE
 COPY target/bpm-app.jar app.jar
-COPY $JAVAX_NET_SSL_TRUSTSTORE .
+COPY ${JAVAX_NET_SSL_TRUSTSTORE} .
 
 # Expose port
 EXPOSE 9090
