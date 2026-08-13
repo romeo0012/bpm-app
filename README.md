@@ -1,19 +1,25 @@
-SECRETS
--------
+ENVIRONMENT VARIABLES
+---------------------
 
-GITHUB_TOKEN=xxx
+GITHUB_TOKEN="xxx"
 DB_URL="jdbc:postgresql://10.100.3.23:5432/camunda"
 DB_USERNAME="webadmin"
 DB_PASSWORD="xxx"
-KEYCLOAK_ISSUER_URI="https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda"
-KEYCLOAK_ADMIN_URL="https://dev-mgmt.prg1paas.t-cloud.eu/admin/realms/camunda"
-KEYCLOAK_CLIENT_ID="camunda"
-KEYCLOAK_CLIENT_SECRET="xxx"
+JAVAX_NET_SSL_TRUSTSTORE="truststore.jks"
+JAVAX_NET_SSL_TRUSTSTOREPASSWORD='xxx'
 CAMUNDA_IDENTITY_CLIENT_ID="camunda-identity-service"
 CAMUNDA_IDENTITY_CLIENT_SECRET="xxx"
-JAVAX_NET_SSL_TRUSTSTORE="truststore.jks"
-JAVAX_NET_SSL_TRUSTSTOREPASSWORD="xxx"
 CAMUNDA_ADMIN_GROUP="camunda-admin"
+KEYCLOAK_BASE_URL="https://dev-mgmt.prg1paas.t-cloud.eu"
+KEYCLOAK_ISSUER_URI="https://dev-mgmt.prg1paas.t-cloud.eu/realms/camunda"
+KEYCLOAK_ADMIN_URL="https://dev-mgmt.prg1paas.t-cloud.eu/admin/realms/camunda"
+KEYCLOAK_ADMIN_USERNAME="admin"
+KEYCLOAK_ADMIN_PASSWORD='xxx'
+KEYCLOAK_REALM="camunda"
+KEYCLOAK_CLIENT_ID="camunda"
+KEYCLOAK_CLIENT_SECRET="xxx"
+KEYCLOAK_IDENTITY_CLIENT_ID="camunda-identity-service"
+KEYCLOAK_IDENTITY_CLIENT_SECRET="xxx"
 
 
 ELASTIC

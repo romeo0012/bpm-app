@@ -9,11 +9,10 @@
 # mvn clean verify
 # java -Djavax.net.ssl.trustStore=$JAVAX_NET_SSL_TRUSTSTORE -Djavax.net.ssl.trustStorePassword=$JAVAX_NET_SSL_TRUSTSTOREPASSWORD -jar target/bpm-app.jar
 
-TOKEN=$1
 TASK=$(basename $(pwd))
 REPO="ghcr.io/romeo0012"
 TAG=$(echo $TASK:latest | tr '[:upper:]' '[:lower:]')
 docker build -t $TAG .
 docker tag $TAG $REPO/$TAG
-echo $TOKEN | docker login ghcr.io -u romeo0012 --password-stdin
+echo $GITHUB_TOKEN | docker login ghcr.io -u romeo0012 --password-stdin
 docker push $REPO/$TAG
