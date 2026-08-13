@@ -1,16 +1,3 @@
-#bpm-app.yaml
-
-# kubectl create secret docker-registry ghcr-creds -n camunda --docker-server=https://ghcr.io --docker-username=romeo0012 --docker-password=${GITHUB_TOKEN}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: bpm-app-secret
-  namespace: camunda
-type: Opaque
-stringData:
-  TRUSTSTORE_PASSWORD: ${JAVAX_NET_SSL_TRUSTSTOREPASSWORD}
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -113,24 +100,13 @@ spec:
         - name: bpm-app
           image: ghcr.io/romeo0012/bpm-app:latest
           imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: bpm-app-secret
 
           ports:
             - containerPort: 9090
               name: http
-
-          env:
-            - name: SPRING_CONFIG_LOCATION
-              value: /config/
-            - name: TRUSTSTORE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: bpm-app-secret
-                  key: TRUSTSTORE_PASSWORD
-
-            - name: JAVA_TOOL_OPTIONS
-              value: >-
-                -Djavax.net.ssl.trustStore=${JAVAX_NET_SSL_TRUSTSTORE} \
-                -Djavax.net.ssl.trustStorePassword=${JAVAX_NET_SSL_TRUSTSTOREPASSWORD}
 
           volumeMounts:
             - name: config-volume
