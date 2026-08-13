@@ -1,6 +1,6 @@
 #bpm-app.yaml
 
-# kubectl create secret docker-registry ghcr-creds -n camunda --docker-server=https://ghcr.io --docker-username=romeo0012 --docker-password=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
+# kubectl create secret docker-registry ghcr-creds -n camunda --docker-server=https://ghcr.io --docker-username=romeo0012 --docker-password=${GITHUB_TOKEN}
 ---
 apiVersion: v1
 kind: Secret
