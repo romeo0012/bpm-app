@@ -19,4 +19,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:9090/health || exit 1
 
 # Start application
-CMD ["java", "-Djavax.net.ssl.trustStore=$JAVAX_NET_SSL_TRUSTSTORE", "-Djavax.net.ssl.trustStorePassword=$JAVAX_NET_SSL_TRUSTSTOREPASSWORD", "-jar", "/app/app.jar"]
+CMD ["sh", "-c", "exec java -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m -Djavax.net.ssl.trustStore=\"$JAVAX_NET_SSL_TRUSTSTORE\" -Djavax.net.ssl.trustStorePassword=\"$JAVAX_NET_SSL_TRUSTSTOREPASSWORD\" -jar app.jar"]
