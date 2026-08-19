@@ -1,4 +1,4 @@
-/Users/roman.marcina/maven/projekty/bpm-app/src/test/java/com/camunda/InMemoryH2Test.java
-/Users/roman.marcina/maven/projekty/bpm-app/src/test/java/com/camunda/ProcessScenarioTest.java
-/Users/roman.marcina/maven/projekty/bpm-app/src/test/java/com/camunda/TestSecurityConfig.java
-/Users/roman.marcina/maven/projekty/bpm-app/src/test/java/com/camunda/ProcessUnitTest.java
+/Users/roman.marcina/github/bpm-app/src/test/java/com/camunda/ProcessScenarioTest.java
+/Users/roman.marcina/github/bpm-app/src/test/java/com/camunda/InMemoryH2Test.java
+/Users/roman.marcina/github/bpm-app/src/test/java/com/camunda/TestSecurityConfig.java
+/Users/roman.marcina/github/bpm-app/src/test/java/com/camunda/ProcessUnitTest.java

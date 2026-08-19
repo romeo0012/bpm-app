@@ -1,3 +1,4 @@
 target/
 *.crt
-*.pem.DS_Store
+*.pem
+*.DS_Store
