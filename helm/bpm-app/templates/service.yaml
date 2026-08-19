@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.codenow.componentRuntimeName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.codenow.componentRuntimeName }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 80
+      protocol: TCP
+      name: http
+      targetPort: {{ .Values.service.port }}
+  selector:
+    app.kubernetes.io/name: {{ .Values.codenow.componentRuntimeName }}
+---
+{{- if .Values.service.externalEndpointEnabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Values.codenow.componentRuntimeName }}-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  hosts:
+  - {{ .Values.codenow.componentRuntimeName }}-{{ .Release.Namespace }}.{{ .Values.codenow.domainName }}
+  gateways:
+  - {{.Values.codenow.serviceMeshGateway }}
+  http:
+  - match:
+    - uri:
+       prefix: /
+    route:
+    - destination:
+        host: {{ .Values.codenow.componentRuntimeName }}.{{ .Release.Namespace }}.svc.cluster.local
+        port:
+          number: 80
+    corsPolicy:
+      allowOrigins:
+        - exact: '*'
+      allowMethods:
+        - POST
+        - GET
+        - OPTIONS
+        - PUT
+        - DELETE
+      allowHeaders:
+        - "*"
+      exposeHeaders:
+        - "*"
+      allowCredentials: true
+{{- end }}
