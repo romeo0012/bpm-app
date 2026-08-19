@@ -1,7 +1,5 @@
 codenow:
-  connections:
-  - name: "BPM_DB"
-    type: "cloudnative-pg"
+  connections: []
   runtime:
     replicas: 1
     resources:
