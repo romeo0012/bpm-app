@@ -8,6 +8,7 @@
 
 # mvn clean verify
 # java -Djavax.net.ssl.trustStore=$JAVAX_NET_SSL_TRUSTSTORE -Djavax.net.ssl.trustStorePassword=$JAVAX_NET_SSL_TRUSTSTOREPASSWORD -jar target/bpm-app.jar
+# java -jar target/bpm-app.jar
 
 TASK=$(basename $(pwd))
 REPO="ghcr.io/romeo0012"
