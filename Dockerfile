@@ -20,4 +20,4 @@ EXPOSE 9090
 USER $APP_USER
 
 # Start application
-CMD ["sh", "-c", "exec java -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m -Djavax.net.ssl.trustStore=truststore.jks -Djavax.net.ssl.trustStorePassword=\"$JAVAX_NET_SSL_TRUSTSTOREPASSWORD\" -jar app.jar"]
+CMD ["java", "-Xmx128m", "-Xms128m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
