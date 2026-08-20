@@ -1,9 +1,10 @@
 FROM alpine:latest
+ENV APP_USER=1001
 
 # Install Java and other dependencies
 RUN apk add --no-cache openjdk17-jre curl bash \
     && addgroup -S appgroup \
-    && adduser -S appuser -G appgroup -u 1001
+    && adduser -S appuser -G appgroup -u $APP_USER
 
 # Set working directory
 WORKDIR /app
@@ -16,7 +17,7 @@ COPY --chown=appuser:appgroup truststore.jks .
 EXPOSE 9090
 
 # Run as non-root user
-USER 1001
+USER $APP_USER
 
 # Start application
-CMD ["sh", "-c", "exec java -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m -Djavax.net.ssl.trustStore=\"$JAVAX_NET_SSL_TRUSTSTORE\" -Djavax.net.ssl.trustStorePassword=\"$JAVAX_NET_SSL_TRUSTSTOREPASSWORD\" -jar app.jar"]
+CMD ["sh", "-c", "exec java -Xmx128m -Xms128m -XX:MaxMetaspaceSize=128m -Djavax.net.ssl.trustStore=truststore.jks -Djavax.net.ssl.trustStorePassword=\"$JAVAX_NET_SSL_TRUSTSTOREPASSWORD\" -jar app.jar"]
