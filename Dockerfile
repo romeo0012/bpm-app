@@ -17,8 +17,8 @@ COPY --chown=appuser:appgroup ${JAVAX_NET_SSL_TRUSTSTORE} .
 EXPOSE 9090
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:9090/health || exit 1
+#HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+#    CMD curl -f http://localhost:9090/health || exit 1
 
 # Run as non-root user
 USER 1001
