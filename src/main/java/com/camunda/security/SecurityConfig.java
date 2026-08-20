@@ -40,6 +40,8 @@ public class SecurityConfig {
                     .permitAll()
                 .requestMatchers("/engine-rest/**")
                     .authenticated()
+                .requestMatchers("/health")
+                    .permitAll()
                 .anyRequest().permitAll()
             )
 

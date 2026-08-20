@@ -76,3 +76,12 @@ logging:
     org.springframework.web.filter.CommonsRequestLoggingFilter: TRACE
     org.springframework.web.servlet.DispatcherServlet: TRACE
     org.springframework.web: TRACE
+
+management:
+  endpoints:
+    web:
+      base-path: /
+  endpoint:
+    health:
+      enabled: true
+      show-details: never
