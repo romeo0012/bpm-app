@@ -21,6 +21,10 @@ public class CamundaApplication {
       System.setProperty("javax.net.ssl.trustStorePassword", trustStorePassword);
     }
 
+    System.out.println("SSL: JVM password present=" +
+      (System.getProperty("javax.net.ssl.trustStorePassword") != null
+       && !System.getProperty("javax.net.ssl.trustStorePassword").isEmpty()));
+
     SpringApplication.run(CamundaApplication.class, args);
   }
 
