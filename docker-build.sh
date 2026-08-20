@@ -10,11 +10,9 @@
 # java -Djavax.net.ssl.trustStore=$JAVAX_NET_SSL_TRUSTSTORE -Djavax.net.ssl.trustStorePassword=$JAVAX_NET_SSL_TRUSTSTOREPASSWORD -jar target/bpm-app.jar
 
 TASK=$(basename $(pwd))
-export REPO="ghcr.io/romeo0012"
-echo $REPO
-export TAG=$(echo $TASK:latest | tr '[:upper:]' '[:lower:]')
-echo $TAG
-#PATH=$PATH:$HOME/Applications/Docker.app/Contents/Resources/bin
+REPO="ghcr.io/romeo0012"
+TAG=$(echo $TASK:latest | tr '[:upper:]' '[:lower:]')
+echo "$REPO / $TAG"
 docker build -t $TAG .
 docker tag $TAG $REPO/$TAG
 echo $GITHUB_TOKEN | docker login ghcr.io -u romeo0012 --password-stdin
