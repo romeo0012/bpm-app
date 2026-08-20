@@ -14,7 +14,7 @@ COPY --chown=appuser:appgroup target/bpm-app.jar app.jar
 COPY --chown=appuser:appgroup truststore.jks .
 
 # Expose port
-EXPOSE 9090
+#EXPOSE 9090
 
 # Run as non-root user
 USER $APP_USER
