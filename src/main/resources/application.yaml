@@ -41,6 +41,8 @@ server:
 
 camunda:
   bpm:
+    database:
+      schema-update: true
     filter:
       create: All Tasks
     webapp:
