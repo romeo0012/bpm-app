@@ -42,7 +42,8 @@ server:
 camunda:
   bpm:
     database:
-      schema-update: true
+      schema-update: ${SCHEMA_UPDATE:true}
+      schema-name: ${SCHEMA_NAME:bpm-dev}
     filter:
       create: All Tasks
     webapp:
