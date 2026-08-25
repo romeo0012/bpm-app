@@ -44,6 +44,7 @@ camunda:
     database:
       schema-update: ${SCHEMA_UPDATE:true}
       schema-name: ${SCHEMA_NAME:bpm-dev}
+      table-prefix: ${SCHEMA_NAME:bpm-dev}.
     filter:
       create: All Tasks
     webapp:
