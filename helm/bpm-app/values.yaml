@@ -1,0 +1,53 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+configHash: "1" # configuration change detection
+codenow:
+  instance: ""
+  applicationName: ""
+  applicationRuntimeName: ""
+  applicationVersion: ""
+  componentRuntimeName: "bpm-app"
+  componentName: "bpm-app"
+  componentVersion: ${project.version}
+  templateId: ""
+  domainName: "tmobile-demo.codenow.com"
+  environmentId: ""
+  serviceMeshGateway: "istio-system/public-gateway"
+
+buildNumber: "${env.BUILD_NUMBER}"
+
+image:
+  pullPolicy: Always
+  pullSecrets:
+    - name: docker-user-registry
+
+remoteDebug:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 9090
+  externalEndpointEnabled: true
+
+
+fluentbit:
+  istioProxy:
+    enabled: true
+    parser: envoy-logging-filter-parser
+  parser: oxus-app-component-json
+
+configFiles: {}
+environmentVariables: {}
+
+metricsPrometheusEnabled: false
+metricsPrometheusStep: PT1M
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
