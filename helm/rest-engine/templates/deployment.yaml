@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.codenow.componentRuntimeName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.codenow.componentRuntimeName }}
+    app.kubernetes.io/name: {{ .Values.codenow.componentRuntimeName }}
+    buildNumber: "{{ .Values.buildNumber }}"
+spec:
+  revisionHistoryLimit: 2
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.codenow.componentRuntimeName }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.fluentbit.istioProxy.enabled }}
+        fluentbit.io/parser-istio-proxy: {{ .Values.fluentbit.istioProxy.parser }}
+        {{- end }}
+        fluentbit.io/parser-{{ .Values.codenow.componentRuntimeName }}: {{ .Values.fluentbit.parser }}
+        prometheus.io/path: /prometheus
+        prometheus.io/port: "{{ .Values.service.port }}"
+        prometheus.io/scrape: "{{ .Values.metricsPrometheusEnabled }}"
+        configHash: "{{ .Values.configHash }}"
+{{- if .Values.remoteDebug.enabled }}
+        sidecar.istio.io/inject: "false"
+{{- end }}
+      labels:
+        app: {{ .Values.codenow.componentRuntimeName }}
+        app.kubernetes.io/name: {{ .Values.codenow.componentRuntimeName }}
+        app.kubernetes.io/instance: {{ .Values.codenow.instance }}
+        app.kubernetes.io/version: {{ .Values.codenow.componentVersion }}
+        app.kubernetes.io/component: {{ .Values.codenow.templateId }}
+        app.kubernetes.io/part-of: {{ .Values.codenow.applicationRuntimeName }}
+        app.kubernetes.io/package-version: {{ .Values.codenow.applicationVersion }}
+    spec:
+      automountServiceAccountToken: false
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+{{- if not .Values.remoteDebug.enabled }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+{{- end }}
+      volumes:
+        {{- $configMapName := .Values.codenow.componentRuntimeName -}}
+        {{ range $key, $val := .Values.configFiles }}
+        - name: {{ $key | replace "." "-" | lower | trimPrefix "-" }}
+          configMap:
+            name: {{ $configMapName }}
+            items:
+            - key: {{ $key }}
+              path: {{ $key }}
+        {{- end }}
+        - name: tmpfs-1
+          emptyDir: {}
+      containers:
+        - name: {{ .Values.codenow.componentRuntimeName }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.Version }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if not .Values.remoteDebug.enabled }}
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+{{- end }}
+          env:
+            - name: SERVER_PORT
+              value: '{{ .Values.service.port }}'
+            {{- $cnSecretName := .Values.codenow.componentRuntimeName -}}
+            {{- range $key, $val := .Values.environmentVariables }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $cnSecretName }}
+                  key: {{ $key }}
+            {{- end }}
+          volumeMounts:
+            {{- range $key, $val := .Values.configFiles }}
+            - name: {{ $key | replace "." "-" | lower | trimPrefix "-" }}
+              mountPath: /codenow/config/{{ $key }}
+              subPath: {{ $key}}
+            {{- end }}
+            - mountPath: /tmp
+              name: tmpfs-1
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 70
+            periodSeconds: 20
+            successThreshold: 1
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+            failureThreshold: 12
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
