@@ -13,11 +13,9 @@ WORKDIR /app
 COPY --chown=appuser:appgroup target/bpm-app.jar app.jar
 COPY --chown=appuser:appgroup truststore.jks .
 
-# Expose port
-#EXPOSE 9090
+RUN chmod 755 /app/docker-entrypoint.sh
 
 # Run as non-root user
 USER $APP_USER
 
-# Start application
-CMD ["java", "-Xmx128m", "-Xms128m", "-XX:MaxMetaspaceSize=128m", "-jar", "app.jar"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
