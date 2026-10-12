@@ -12,6 +12,7 @@ WORKDIR /app
 # Copy application files
 COPY --chown=appuser:appgroup target/bpm-app.jar app.jar
 COPY --chown=appuser:appgroup truststore.jks .
+COPY --chown=appuser:appgroup docker-entrypoint.sh .
 
 RUN chmod 755 /app/docker-entrypoint.sh
 
